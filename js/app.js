@@ -27,7 +27,9 @@ const displayDefaultMenu = async () => {
     // postId = item.category_id;
     menuDiv.innerHTML = `
         <a class="p-4 text-gray-500 hover:text-sky-400 active:text-sky-400" onclick="relativePost('${item.category_id}')"> ${item.category_name} </a>
+        
     `;
+
     menu.appendChild(menuDiv);
   });
 };
@@ -46,10 +48,18 @@ displayDefaultMenu();
 
 // menu click and more of that category news code here.
 const relativePost = async (category_id) => {
+  const spinner = document.getElementById("progress");
+  spinner.classList.remove("hidden");
+
   const url = `https://openapi.programming-hero.com/api/news/category/${category_id}`;
   //   console.log(url);
   const post = await fetch(url);
   const details = await post.json();
+
+  // sorting by category view more
+  details.data.sort((a, b) => {
+    return b.total_view - a.total_view;
+  });
 
   const detailsNewsDiv = document.getElementById("details-news");
   detailsNewsDiv.innerHTML = "";
@@ -60,8 +70,15 @@ const relativePost = async (category_id) => {
   if (details.data.length === 0) {
     // console.log("No news for that category");
     notFound.innerText = "Sorry!!! No news found for This category";
+    const number = details.data.length;
+    document.getElementById("foundNews").innerText =
+      number + " news Found in this category";
 
     return;
+  } else {
+    const number = details.data.length;
+    document.getElementById("foundNews").innerText =
+      number + " news Found in this category";
   }
 
   const categoryPost = details.data;
@@ -84,6 +101,8 @@ const relativePost = async (category_id) => {
                   ? post.details.slice(0, 180) + "..."
                   : post.details
               }</p>
+              
+              
 
                   <div class="flex flex-auto pt-3">
                             <div class="flex-none pt-2"> <img class="img-responsive w-8 rounded-full" src="${
@@ -131,20 +150,42 @@ const relativePost = async (category_id) => {
                            </svg>
                             </div>
      
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-auto">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                            </svg>
+                            <label for="my-modal" class=" mx-auto btn modal-button btn-info" onclick="relatedPost(${
+                              post.details._id
+                            })" >More</lebel>
                                                
                    </div>
           </div>
-
+          
       </div>
-
+     
       `;
 
     detailsNewsDiv.appendChild(detailsDiv);
+
+    const spinnerstop = document.getElementById("progress");
+    spinnerstop.classList.add("hidden");
   });
 
   // console.log(details.data);
   // return categoryPost;
+};
+
+const relatedPost = (id) => {
+  console.log(id);
+  const modalParentDiv = document.getElementById("modal");
+  const modalDiv = modalParentDiv.createElement("div");
+  modalDiv.classList.add("modal-box");
+
+  modalDiv.innerHTML = `
+                <img id="modal-image" src="${id.image_url}" alt="">
+                <h3 id="modal-title" class="font-bold text-lg">${id.title}</h3>
+                <p id="modal-description" class="py-4">${id.details}
+                </p>
+                <div class="modal-action">
+                    <label for="my-modal" class="btn">Close</label>
+                </div>
+  
+  `;
+  modalParentDiv.appendChild(modalDiv);
 };
