@@ -150,10 +150,14 @@ const relativePost = async (category_id) => {
                            </svg>
                             </div>
      
-                            <label for="my-modal" class=" mx-auto btn modal-button btn-info" onclick="relatedPost(${
-                              post.details._id
-                            })" >More</lebel>
-                                               
+                            <button onclick="loadDetails('${
+                              post._id
+                            }')" id=modal-btn> 
+                            
+                            <a href="#my-modal-2" class="btn btn-info"> More</a>
+                            </button>
+                            
+                                                                     
                    </div>
           </div>
           
@@ -162,7 +166,7 @@ const relativePost = async (category_id) => {
       `;
 
     detailsNewsDiv.appendChild(detailsDiv);
-
+    // spinner stop here
     const spinnerstop = document.getElementById("progress");
     spinnerstop.classList.add("hidden");
   });
@@ -171,21 +175,36 @@ const relativePost = async (category_id) => {
   // return categoryPost;
 };
 
-const relatedPost = (id) => {
-  console.log(id);
-  const modalParentDiv = document.getElementById("modal");
-  const modalDiv = modalParentDiv.createElement("div");
-  modalDiv.classList.add("modal-box");
+const loadDetails = async (news_id) => {
+  try {
+    const url2 = `https://openapi.programming-hero.com/api/news/${news_id}`;
+    // console.log(url2);
+    const feedback = await fetch(url2);
+    const relativeNews = await feedback.json();
+    modalOpen(relativeNews.data[0]);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-  modalDiv.innerHTML = `
-                <img id="modal-image" src="${id.image_url}" alt="">
-                <h3 id="modal-title" class="font-bold text-lg">${id.title}</h3>
-                <p id="modal-description" class="py-4">${id.details}
-                </p>
-                <div class="modal-action">
-                    <label for="my-modal" class="btn">Close</label>
-                </div>
+const modalOpen = (newsDetail) => {
+  // console.log("newsDetail");
+  const modalBody = document.getElementById("modal-body");
+  modalBody.innerHTML = `
+            <img src="${newsDetail.image_url}">
+            <h3 class="font-medium ">${newsDetail.title}</h3>
+            <h3 class="font-medium ">${
+              newsDetail.author.name ? newsDetail.author.name : "Not Found"
+            }</h3>
+            <h3 class="font-medium ">${newsDetail.author.published_date.slice(
+              0,
+              10
+            )}</h3>
+            <p class="py-4">${newsDetail.details}
+            </p>
+            <div class="modal-action">
+                <a href="#" class="btn">Close</a>
+            </div>
   
   `;
-  modalParentDiv.appendChild(modalDiv);
 };
