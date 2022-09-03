@@ -42,7 +42,96 @@
 
     </header>
 
+    <main>
+        <section class="mx-auto px-4 bg-sky-100">
+            <h1 class="font-bold">What is the Difference Between Var, Let & Const?</h1>
+            <p class="py-4">var variables can be re-declared and updated.
+                The scope is global when a var variable is declared outside a function. This means that any variable
+                that
+                is declared with var outside a function block is available for use in the whole window.
+            </p>
 
+            <p class="py-4"> let is now preferred for variable declaration. It's no surprise as it comes as an
+                improvement to var
+                declarations. It also solves the problem with var that we just covered. Let's consider why this is so.
+                let is block scoped.let can be updated but not re-declared.
+            </p>
+
+            <p class="py-4">
+                Variables declared with the const maintain constant values. const declarations share some similarities
+                with let declarations.
+                const declarations are block scoped.const cannot be updated or re-declared.
+            </p>
+
+
+        </section>
+        <section class="mx-auto px-4 bg-amber-100">
+            <h1 class="font-bold">What is the difference between reguar function and arrow function?</h1>
+            <p class="py-4">
+                Regular functions created using function declarations or expressions are constructible and callable.
+                Since regular functions are constructible, they can be called using the new keyword. However, the arrow
+                functions are only callable and not constructible, i.e arrow functions can never be used as constructor
+                functions.
+            </p>
+
+            <p class="py-4">
+                Arrow functions do not have a arguments array
+                In JS arguments array in functions is a special object that can be used to get all the arguments passed
+                to the function. Similar to this, arrow functions do not have their own binding to a arguments object,
+                they are bound to arguments of enclosing scope.
+
+                Arrow functions are callable but not constructable
+                If a function is constructable, it can be called with new, i.e. new User(). If a function is callable,
+                it can be called without new (i.e. normal function call).
+
+                Functions created through function declarations / expressions are both constructable and callable.
+
+                Arrow functions (and methods) are only callable. class constructors are only constructable.
+            </p>
+        </section>
+        <section class="mx-auto px-4 bg-blue-100">
+            <h1 class="font-bold">Differences Between map(), ForEach(), filter(), and find()?</h1>
+            <p class="py-4">
+                forEach:
+
+                forEach(), is used to execute the same code on every element in an array but does not change the array
+                and it returns undefined.
+            </p>
+            <p class="py-4">
+                map():
+                map(), executes the same code on every element in an array and returns a new array with the updated.
+                elements.
+            </p>
+            <p class="py-4">
+                filter():
+                filter(), checks every element in an array to see if it meets a certain criteria and returns a new array
+                with the elements that return truthy for the criteria.
+            </p>
+
+            <p class="py-4">
+                find:
+
+                find(), is used to execute the same code on every element in an array When we want to select a single
+                element from an array..
+            </p>
+        </section>
+        <section class="mx-auto px-4 bg-violet-100">
+            <h1 class="font-bold">Why we use template string?</h1>
+            <p class="py-4">
+                Template strings:
+
+                Template literals are literals delimited with backtick (`) characters, allowing for multi-line strings,
+                for string interpolation with embedded expressions, and for special constructs called tagged templates.
+
+                Template literals are sometimes informally called template strings, because they are used most commonly
+                for string interpolation (to create strings by doing substitution of placeholders). However, a tagged
+                template literal may not result in a string; it can be used with a custom tag function to perform
+                whatever operations you want on the different parts of the template literal.
+            </p>
+
+
+        </section>
+    </main>
 
 </body>
 

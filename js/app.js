@@ -66,7 +66,7 @@ const relativePost = async (category_id) => {
 
   const categoryPost = details.data;
   categoryPost.forEach((post) => {
-    console.log(post);
+    // console.log(post);
 
     const detailsDiv = document.createElement("div");
     detailsDiv.innerHTML = `
@@ -80,7 +80,7 @@ const relativePost = async (category_id) => {
                  <div class="grow mt-5 pl-4" >
               <h1 class="text-xl font-bold">${post.title}</h1>
               <p>${
-                post.details.length >= 180
+                post.details.length > 180
                   ? post.details.slice(0, 180) + "..."
                   : post.details
               }</p>
@@ -130,21 +130,12 @@ const relativePost = async (category_id) => {
                              <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                            </svg>
                             </div>
-                         
-                          <label for="my-modal-3" 
-                          onclick="showModal('${post.title}',
-                          '${post.image_url}','${
-      post.details
-    }')"  class="mx-auto btn btn-info modal-button"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg></label>
-
-                          
-
-
-                     
+     
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mx-auto">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                            </svg>
+                                               
                    </div>
-
           </div>
 
       </div>
@@ -153,19 +144,7 @@ const relativePost = async (category_id) => {
 
     detailsNewsDiv.appendChild(detailsDiv);
   });
-  console.log(details.data);
-  return categoryPost;
-};
 
-const showModal = (title, image, description) => {
-  // console.log(description, image)
-  const modalBody = document.getElementById("modal-body");
-  modalBody.textContent = "";
-  modalBody.innerHTML = `
-    <p class="py-4">
-    ${title}
-    </p>
-    <img src="${image}"/>
-    
-    <p class="py-4">${description}</p>`;
+  // console.log(details.data);
+  // return categoryPost;
 };
